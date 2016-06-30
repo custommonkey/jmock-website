@@ -7,9 +7,11 @@ ASSETS=$(shell find assets -not -name '*~' -and -not -path '*/.git*')
 JAVADOCS=$(shell find archives -name '*javadoc.zip')
 ARCHIVES=$(shell find archives -name '*.zip')
 
+
 OUTDIR=skinned
 OUTPUT=$(CONTENT:content/%=$(OUTDIR)/%) \
        $(SKIN:templates/%=$(OUTDIR)/%) \
+       $(CONTENT:content/%.html=markdown/%.md) \
        $(ASSETS:assets/%.svg=$(OUTDIR)/%.png) \
        $(JAVADOCS:archives/%-javadoc.zip=$(OUTDIR)/javadoc/%/index.html) \
        $(ARCHIVES:archives/%=$(OUTDIR)/downloads/%)
@@ -17,6 +19,10 @@ OUTPUT=$(CONTENT:content/%=$(OUTDIR)/%) \
 all: $(OUTPUT)
 
 $(OUTDIR)/index.html: content/news-rss2.xml
+
+markdown/%.md: content/%.html
+	@mkdir -p $(dir $@)
+	pandoc --from=html --to=markdown_github $< >> $@
 
 $(OUTDIR)/%.html: content/%.html templates/skin.xslt data/versions.xml
 	@mkdir -p $(dir $@)
@@ -61,6 +67,7 @@ $(OUTDIR)/javadoc/%/index.html: archives/%-javadoc.zip
 
 clean:
 	rm -rf $(OUTDIR)/
+	rm -rf markdown/
 
 again: clean all
 
