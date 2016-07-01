@@ -1,0 +1,6 @@
+{
+  "name": "Jmock-website",
+  "tagline": "A copy of the original repository for the jMock documentation that is published at http://www.jmock.org",
+  "body": "Sources for JMock website\r\n=========================\r\n\r\nThis is the source for the JMock website. \r\n\r\nIf you change it, `make` it locally and check the contents of the `skinned` directory \r\ninto the `gh-pages` branch `jmock` repository. That will get pushed to the website.\r\n\r\n\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
