@@ -1,5 +1,6 @@
 ---
 layout: page
+title: jMock 1 Documentation
 ---
 jMock 1 Documentation
 =====================
